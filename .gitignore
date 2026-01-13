@@ -15,7 +15,7 @@
 *.env
 .envrc
 .kiro/
-
+.kiro
 # Secrets and credentials
 secrets/
 *.key
