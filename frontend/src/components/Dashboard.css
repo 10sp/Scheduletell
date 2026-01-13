@@ -1,0 +1,195 @@
+.dashboard {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.new-appointment-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.new-appointment-btn:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.new-appointment-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.appointments-section h3 {
+  color: #374151;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #dc2626;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  border: 2px dashed #d1d5db;
+}
+
+.empty-state p {
+  margin: 8px 0;
+  font-size: 1.1rem;
+}
+
+.empty-state p:first-child {
+  font-weight: 500;
+  color: #374151;
+}
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.appointment-item {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-item:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  transform: translateY(-1px);
+}
+
+.appointment-item:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.appointment-time {
+  min-width: 140px;
+  margin-right: 20px;
+}
+
+.appointment-date {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.appointment-time-slot {
+  font-size: 1.1rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.appointment-details {
+  flex: 1;
+}
+
+.customer-name {
+  font-size: 1.1rem;
+  color: #1f2937;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.appointment-duration {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.appointment-arrow {
+  color: #9ca3af;
+  font-size: 1.2rem;
+  margin-left: 16px;
+  transition: color 0.2s ease;
+}
+
+.appointment-item:hover .appointment-arrow {
+  color: #3b82f6;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .dashboard {
+    padding: 16px;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .dashboard-header h2 {
+    text-align: center;
+    font-size: 1.75rem;
+  }
+  
+  .appointment-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .appointment-time {
+    min-width: auto;
+    margin-right: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .appointment-arrow {
+    align-self: center;
+    margin-left: 0;
+  }
+}

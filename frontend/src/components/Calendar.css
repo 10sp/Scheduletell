@@ -1,0 +1,251 @@
+/* Calendar container styles */
+.calendar-container {
+  height: 600px;
+  width: 100%;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Override react-big-calendar styles */
+.rbc-calendar {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Header styles */
+.rbc-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0.75rem 0.5rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+/* Today's date highlighting */
+.rbc-today {
+  background-color: #e3f2fd !important;
+}
+
+/* Event (appointment) styles */
+.rbc-event {
+  background-color: #3174ad !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 2px 6px !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.rbc-event:hover {
+  background-color: #2563eb !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.rbc-event:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Selected event styles */
+.rbc-event.rbc-selected {
+  background-color: #1d4ed8 !important;
+}
+
+/* Time slot styles */
+.rbc-time-slot {
+  border-top: 1px solid #e9ecef;
+  transition: background-color 0.2s ease;
+}
+
+.rbc-time-slot:hover {
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+/* Available time slot styles */
+.rbc-time-slot.available {
+  background-color: #e8f5e8 !important;
+}
+
+.rbc-time-slot.available:hover {
+  background-color: #d4edda !important;
+}
+
+/* Time gutter styles */
+.rbc-time-gutter {
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+}
+
+.rbc-timeslot-group {
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* Navigation toolbar styles */
+.rbc-toolbar {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.rbc-toolbar button {
+  background-color: #6c757d;
+  border: 1px solid #6c757d;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 2px;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+.rbc-toolbar button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.rbc-toolbar button.rbc-active {
+  background-color: #3174ad;
+  border-color: #3174ad;
+}
+
+.rbc-toolbar button.rbc-active:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Month view specific styles */
+.rbc-month-view {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+.rbc-date-cell {
+  padding: 0.25rem;
+  text-align: right;
+  font-weight: 500;
+}
+
+.rbc-date-cell.rbc-off-range {
+  color: #6c757d;
+}
+
+.rbc-date-cell.rbc-now {
+  font-weight: 700;
+  color: #3174ad;
+}
+
+/* Week and day view specific styles */
+.rbc-time-view {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+.rbc-time-header {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.rbc-time-content {
+  border-top: none;
+}
+
+/* All day event area */
+.rbc-allday-cell {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Popup styles */
+.rbc-overlay {
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem;
+  z-index: 1000;
+}
+
+.rbc-overlay-header {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .calendar-container {
+    height: 500px;
+    padding: 0.5rem;
+  }
+  
+  .rbc-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .rbc-toolbar-label {
+    margin: 0.5rem 0;
+    text-align: center;
+  }
+  
+  .rbc-btn-group {
+    display: flex;
+    justify-content: center;
+    margin: 0.25rem 0;
+  }
+  
+  .rbc-event {
+    font-size: 0.75rem !important;
+    padding: 1px 4px !important;
+  }
+}
+
+/* Loading state */
+.calendar-container.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.calendar-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3174ad;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error state */
+.calendar-container.error {
+  border: 2px solid #dc3545;
+  background-color: #f8d7da;
+}
+
+.calendar-error-message {
+  text-align: center;
+  color: #721c24;
+  padding: 2rem;
+  font-weight: 500;
+}
