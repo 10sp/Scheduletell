@@ -31,7 +31,10 @@ class AppointmentCreate(BaseModel):
     
     @validator('start_time')
     def validate_start_time(cls, v):
-        if v <= datetime.now():
+        # Make both datetimes timezone-naive for comparison
+        now = datetime.now()
+        v_naive = v.replace(tzinfo=None) if v.tzinfo else v
+        if v_naive <= now:
             raise ValueError('Appointment cannot be scheduled in the past')
         return v
     
@@ -58,8 +61,12 @@ class AppointmentUpdate(BaseModel):
     
     @validator('start_time')
     def validate_start_time(cls, v):
-        if v is not None and v <= datetime.now():
-            raise ValueError('Appointment cannot be scheduled in the past')
+        if v is not None:
+            # Make both datetimes timezone-naive for comparison
+            now = datetime.now()
+            v_naive = v.replace(tzinfo=None) if v.tzinfo else v
+            if v_naive <= now:
+                raise ValueError('Appointment cannot be scheduled in the past')
         return v
     
     @validator('duration_minutes')
@@ -116,6 +123,9 @@ class AppointmentService:
             True if the time slot is available, False otherwise
         """
         try:
+            # Make start_time timezone-naive for consistent comparisons
+            start_time = start_time.replace(tzinfo=None) if start_time.tzinfo else start_time
+            
             # Convert string IDs to UUIDs if necessary
             if isinstance(user_id, str):
                 try:
@@ -147,8 +157,15 @@ class AppointmentService:
             end_time = start_time + timedelta(minutes=duration_minutes)
             time_slot_available = False
             
+            # Extract just the time component for comparison (ignore date/timezone)
+            start_time_only = start_time.time()
+            end_time_only = end_time.time()
+            
             for slot in day_availability:
-                if slot.available and slot.start_time <= start_time and slot.end_time >= end_time:
+                slot_start_time = slot.start_time.time()
+                slot_end_time = slot.end_time.time()
+                
+                if slot.available and slot_start_time <= start_time_only and slot_end_time >= end_time_only:
                     time_slot_available = True
                     break
             

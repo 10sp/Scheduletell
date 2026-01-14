@@ -88,8 +88,13 @@ class Appointment(Base):
     
     def overlaps_with(self, other_start: datetime, other_duration: int) -> bool:
         """Check if this appointment overlaps with another time slot"""
-        other_end = other_start + timedelta(minutes=other_duration)
-        return (self.start_time < other_end) and (self.end_time > other_start)
+        # Make both datetimes timezone-naive for comparison
+        self_start = self.start_time.replace(tzinfo=None) if self.start_time.tzinfo else self.start_time
+        other_start_naive = other_start.replace(tzinfo=None) if other_start.tzinfo else other_start
+        
+        self_end = self_start + timedelta(minutes=self.duration_minutes)
+        other_end = other_start_naive + timedelta(minutes=other_duration)
+        return (self_start < other_end) and (self_end > other_start_naive)
     
     def __repr__(self) -> str:
         return f"<Appointment(id={self.id}, customer='{self.customer_name}', start={self.start_time})>"

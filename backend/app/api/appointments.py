@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, date, time
 from app.core.database import get_db
 from app.core.dependencies import get_current_user, get_appointment_service
 from app.services.appointment_service import AppointmentService, AppointmentCreate, AppointmentUpdate, AppointmentResponse
@@ -37,8 +37,8 @@ async def create_appointment(
 
 @router.get("/", response_model=List[AppointmentResponse])
 async def list_appointments(
-    start_date: Optional[datetime] = Query(None, description="Start date for filtering (ISO format)"),
-    end_date: Optional[datetime] = Query(None, description="End date for filtering (ISO format)"),
+    start_date: Optional[date] = Query(None, description="Start date for filtering (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="End date for filtering (YYYY-MM-DD)"),
     current_user: User = Depends(get_current_user),
     appointment_service: AppointmentService = Depends(get_appointment_service)
 ):
@@ -46,10 +46,22 @@ async def list_appointments(
     List appointments with optional date range filters
     """
     try:
+        # Convert dates to datetime for service layer
+        start_datetime = None
+        end_datetime = None
+        
+        if start_date:
+            from datetime import datetime, time
+            start_datetime = datetime.combine(start_date, time.min)
+        
+        if end_date:
+            from datetime import datetime, time
+            end_datetime = datetime.combine(end_date, time.max)
+        
         appointments = appointment_service.get_appointments(
             current_user.id, 
-            start_date=start_date, 
-            end_date=end_date
+            start_date=start_datetime, 
+            end_date=end_datetime
         )
         return appointments
     except Exception as e:
